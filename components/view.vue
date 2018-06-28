@@ -1,8 +1,13 @@
 <template>
-    <div :class="classname">    	
+    <div :class="classname">
 		<span class="vue-dropdown-header"><slot></slot></span>
 		<ul class="vue-dropdown-body">
-			<li v-for="item in data"><router-link :to="item.url">{{ item.title }}</router-link></li>
+			<li v-for="item in data">
+				<dialog-link :to="{name:item.name,params:item.params, width: item.width}" v-if="item.type == 'dialog'">{{ item.title }}</dialog-link>
+				<a href="javascript:void(0)" v-on:click="parentFun(item.fun,item.params)" v-else-if="item.type == 'a'">{{ item.title }}</a>
+				<router-link :to="item.url" v-else-if="typeof(item.url) != 'undefined'">{{ item.title }}</router-link>
+				<router-link :to="{name:item.name,params:item.params}" v-else>{{ item.title }}</router-link>
+			</li>
 		</ul>
 	</div>
 </template>
@@ -20,7 +25,9 @@ export default {
         this.classname = this.classname + ' vue-dropdown-' + ($util.empty(this.cls)?'default':this.cls);
     },
     methods: {
-        
+        parentFun: function(fun,params){
+        	this.$emit(fun, params);
+        }
     }
 }
 </script>

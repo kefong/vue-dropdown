@@ -1,6 +1,6 @@
 {
   "name": "vue-dropdown",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Vue Drop down",
   "main": "index.js",
   "scripts": {

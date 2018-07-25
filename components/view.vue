@@ -4,7 +4,7 @@
 		<ul class="vue-dropdown-body">
 			<li v-for="item in data">
 				<dialog-link :to="{name:item.name,params:item.params, width: item.width}" v-if="item.type == 'dialog'">{{ item.title }}</dialog-link>
-				<a href="javascript:void(0)" v-on:click="parentFun(item.fun,item.params)" v-else-if="item.type == 'a'">{{ item.title }}</a>
+				<a href="javascript:void(0)" v-on:click="item.onClick" v-else-if="item.type == 'click'">{{ item.title }}</a>
 				<router-link :to="item.url" v-else-if="typeof(item.url) != 'undefined'">{{ item.title }}</router-link>
 				<router-link :to="{name:item.name,params:item.params}" v-else>{{ item.title }}</router-link>
 			</li>
@@ -24,11 +24,7 @@ export default {
         var that = this;
         this.classname = this.classname + ' vue-dropdown-' + ($util.empty(this.cls)?'default':this.cls);
     },
-    methods: {
-        parentFun: function(fun,params){
-        	this.$emit(fun, params);
-        }
-    }
+    methods: {}
 }
 </script>
 <style lang="postcss" scoped>
